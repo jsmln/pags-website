@@ -8,6 +8,6 @@ export const GRAY = "#B7C0BA";
 export const NAV_LINKS = [
   { label: "Services", to: "/services" },
   { label: "Portfolio", to: "/portfolio" },
-  { label: "Industries", to: "/industries" },
   { label: "About", to: "/about" },
+  { label: "Careers", to: "/careers" },
 ];

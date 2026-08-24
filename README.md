@@ -35,6 +35,7 @@ pags-website/
         ├── About.jsx                # /about — history, founder, mission/vision, values
         ├── Services.jsx              # /services — service directory, charts, quote form
         ├── Portfolio.jsx              # /portfolio — filterable project gallery
+        ├── Careers.jsx                 # /careers — job openings + application form
         ├── LegalPage.jsx              # Shared placeholder for Privacy/Terms/Accessibility
         └── NotFound.jsx                # 404 page
 ```
@@ -96,21 +97,42 @@ document (this is what makes client-side routing work), and point the CDN/domain
 
 ## Before going live — checklist
 
-- [ ] Replace placeholder photography (hero building graphic, deliverable card icons, project
-      gallery tiles) with real project/facility photos.
-- [ ] Replace stat/testimonial placeholders in `Home.jsx` with verified figures (commissioning
-      turnaround, SLA coverage %, safety record, etc.) — these get fact-checked by facility and
-      procurement teams before shortlisting.
-- [ ] Wire the quote forms (`Home.jsx`, `Services.jsx`) to a real backend, form service (e.g.
-      Formspree, a serverless function), or CRM — they currently only show a local success state.
+- [ ] Replace placeholder photography (hero building graphic, service icons) with real
+      facility and project photos — the live site has real photos of chilled water systems,
+      ducting works, etc. that could be reused/re-shot.
+- [x] ~~Replace stat/testimonial placeholders~~ — done. Fabricated stats, testimonials, and
+      named project case studies have been removed since they weren't sourced from the real
+      site. Content now reflects verified facts from pagsinc.com (see `src/lib/companyData.js`).
+- [ ] Add real named project case studies to `Portfolio.jsx` (client, location, scope, outcome)
+      once available — the live site currently only lists 6 sector categories, no individual
+      case studies, so procurement teams have nothing concrete to vet yet.
+- [ ] Wire the quote form (`Home.jsx`) to a real backend, form service (e.g. Formspree, a
+      serverless function), or CRM — it currently only shows a local success state.
 - [ ] Fill in real content for `Privacy Policy`, `Terms`, and `Accessibility` in `LegalPage.jsx`
-      usages, or split them into their own files if the content grows.
-- [ ] Add real `favicon.png` and `og-image.jpg` to `public/`.
-- [ ] Update contact details, email, and phone numbers in `Footer.jsx`/`Services.jsx`.
-- [ ] Consider adding an "Accreditations & Safety" section (TR capacity portfolio, PCAB
-      license, safety certifications) — this is what your target buyers (property developers,
-      mall operators, data center facilities teams) specifically vet before shortlisting.
+      usages.
+- [ ] Add real `favicon.png` and `og-image.jpg` to `public/` (don't hotlink the live site's CDN
+      images — host your own copies).
+- [ ] **Confirm the founding year** — the live homepage says 1996, the About page says 1997.
+      `src/lib/companyData.js` currently uses 1996; update `COMPANY.foundedYear` once confirmed.
+- [x] ~~Consider adding a `/careers` page~~ — done. Real job openings and application form
+      added in `Careers.jsx`, sourced from pagsinc.com/careers.
+- [ ] Consider adding a dedicated `/contact` page — the live site has one separate from the
+      homepage quote form; this rebuild currently routes "Contact" nav clicks to the homepage
+      quote form instead.
+- [ ] Wire the Careers application form (`Careers.jsx`) to a real backend — like the quote
+      form, it currently only shows a local success state and doesn't actually send the
+      resume/details anywhere.
+- [ ] Consider adding an "Accreditations & Safety" section (PCAB license, safety certifications,
+      TR capacity) — this is what property developers, mall operators, and data center
+      facilities teams specifically vet before shortlisting a contractor.
 - [ ] Run `npm run build` and click through every route on a real mobile device before deploy.
+
+## Content sourcing
+
+All factual content (founder, leadership team, service categories, project sectors, contact
+info, vision/mission, core values) was sourced from `https://www.pagsinc.com` and is centralized
+in `src/lib/companyData.js`. If the live site's content changes, update that file rather than
+editing individual pages — every page imports from it.
 
 ## Tech stack
 
@@ -118,4 +140,3 @@ document (this is what makes client-side routing work), and point the CDN/domain
 - **Vite** — build tool and dev server
 - **Tailwind CSS** — styling
 - **lucide-react** — icon set
-- **recharts** — charts (commissioning success trend, service mix, lead times)
