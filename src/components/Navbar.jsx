@@ -40,7 +40,7 @@ export default function Navbar() {
               {l.label}
             </NavLink>
           ))}
-          <Link to="/#quote" className="hover:text-[#1B5E3F] font-medium">
+          <Link to="/contact" className="hover:text-[#1B5E3F] font-medium">
             Contact
           </Link>
         </nav>
@@ -76,7 +76,7 @@ export default function Navbar() {
               {l.label}
             </NavLink>
           ))}
-          <Link to="/#quote" className="font-medium" onClick={() => setMenuOpen(false)}>
+          <Link to="/contact" className="font-medium" onClick={() => setMenuOpen(false)}>
             Contact
           </Link>
         </div>

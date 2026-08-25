@@ -26,6 +26,15 @@ export const CONTACT = {
   waze: "https://www.waze.com/ul?ll=14.5778,121.04618",
 };
 
+export const LOCATIONS = [
+  {
+    label: "Head Office",
+    address: CONTACT.address,
+    lat: 14.5778,
+    lng: 121.04618,
+  },
+];
+
 // Real service breakdown from pagsinc.com/services
 export const SERVICE_GROUPS = [
   {
