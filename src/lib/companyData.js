@@ -33,6 +33,47 @@ export const LOCATIONS = [
     lat: 14.5778,
     lng: 121.04618,
   },
+  {
+    label: "Fabrication",
+    address: "Block 42 Lot 3, Jaguar St., Fairview Park Subdivision, Quezon City, Philippines",
+  },
+  {
+    label: "Warehouse",
+    address: "2711 Jesus Extension, Pandacan, Manila, Philippines",
+  },
+];
+
+export const DEPARTMENT_CONTACTS = [
+  {
+    department: "Purchasing",
+    email: "purchasing_unit@pagsinc.com",
+    concern: "Supplier accreditation and concerns",
+  },
+  {
+    department: "Human Resources",
+    email: CONTACT.hrEmail,
+    concern: "All HR-related concerns, OJT and job applications",
+  },
+  {
+    department: "Estimation",
+    email: "estimation@pagsinc.com",
+    concern: "Project estimation concerns",
+  },
+  {
+    department: "Engineering",
+    email: "engineering@pagsinc.com",
+    concern: "Contracts and Project bidding concerns",
+  },
+  {
+    department: "Health, Safety and Environment",
+    email: "safety_unit@pagsinc.com",
+    concern: "Safety and environmental concerns",
+  },
+  {
+    department: "Accounting",
+    email: "accounting_unit@pagsinc.com",
+    concern: "Accounts",
+  },
 ];
 
 // Real service breakdown from pagsinc.com/services
