@@ -10,7 +10,7 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import { GREEN, GREEN_DARK, GREEN_LIGHT } from "../lib/theme.js";
-import { CONTACT, LOCATIONS } from "../lib/companyData.js";
+import { CONTACT, DEPARTMENT_CONTACTS, LOCATIONS } from "../lib/companyData.js";
 
 export default function Contact() {
   const [activeLocation, setActiveLocation] = useState(0);
@@ -113,6 +113,39 @@ export default function Contact() {
                 referrerPolicy="no-referrer-when-downgrade"
               />
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Department contacts */}
+      <section className="max-w-6xl mx-auto px-5 py-12">
+        <div className="border-t-4 pt-6" style={{ borderColor: GREEN }}>
+          <h2 className="text-3xl font-extrabold text-center" style={{ color: GREEN }}>
+            Department Contacts
+          </h2>
+          <div className="mt-6 overflow-x-auto border border-[#DDE3DF] rounded-lg">
+            <table className="w-full min-w-[680px] text-sm text-center">
+              <thead className="text-white" style={{ backgroundColor: GREEN }}>
+                <tr>
+                  <th className="px-4 py-3 font-bold">Department</th>
+                  <th className="px-4 py-3 font-bold">Email</th>
+                  <th className="px-4 py-3 font-bold">Concern</th>
+                </tr>
+              </thead>
+              <tbody>
+                {DEPARTMENT_CONTACTS.map((contact, index) => (
+                  <tr key={contact.department} className={index % 2 ? "bg-[#F7F9F7]" : "bg-white"}>
+                    <td className="border-t border-[#DDE3DF] px-4 py-2.5 font-medium">{contact.department}</td>
+                    <td className="border-t border-[#DDE3DF] px-4 py-2.5">
+                      <a href={`mailto:${contact.email}`} className="hover:underline" style={{ color: GREEN }}>
+                        {contact.email}
+                      </a>
+                    </td>
+                    <td className="border-t border-[#DDE3DF] px-4 py-2.5">{contact.concern}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </section>
