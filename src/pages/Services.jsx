@@ -40,7 +40,7 @@ export default function Services() {
   return (
     <>
       {/* Hero */}
-      <section className="max-w-6xl mx-auto px-5 pt-14 pb-16 grid md:grid-cols-2 gap-10 items-center">
+      <section className="hero-section max-w-6xl mx-auto px-5 pt-14 pb-16 grid md:grid-cols-2 gap-10 items-center">
         <div>
           <h1 className="text-4xl md:text-5xl font-extrabold leading-tight" style={{ color: GREEN }}>
             What We Offer
@@ -70,13 +70,13 @@ export default function Services() {
             ))}
           </div>
         </div>
-        <div className="rounded-xl bg-[#ECEFED] aspect-[4/3] flex items-center justify-center">
+        <div className="rounded-xl bg-white aspect-[4/3] flex items-center justify-center">
           <Layers className="w-12 h-12" style={{ color: GRAY }} />
         </div>
       </section>
 
       {/* Service Categories (real, from pagsinc.com/services) */}
-      <section className="bg-[#F7F9F7] py-16">
+      <section className="bg-white py-16">
         <div className="max-w-6xl mx-auto px-5">
           <div className="text-center">
             <h2 className="text-3xl font-extrabold" style={{ color: GREEN }}>Service Categories</h2>
@@ -134,10 +134,10 @@ export default function Services() {
       </section>
 
       {/* Request a Quote */}
-      <section className="bg-[#F7F9F7] py-16">
+      <section className="bg-white py-16">
         <div className="max-w-4xl mx-auto px-5">
           <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div className="rounded-xl bg-[#ECEFED] aspect-square flex items-center justify-center">
+            <div className="rounded-xl bg-white aspect-square flex items-center justify-center">
               <ClipboardCheck className="w-10 h-10" style={{ color: GRAY }} />
             </div>
             <div>

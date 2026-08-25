@@ -18,7 +18,7 @@ export default function About() {
   return (
     <>
       {/* Hero */}
-      <section className="max-w-6xl mx-auto px-5 pt-14 pb-16 grid md:grid-cols-2 gap-10 items-center">
+      <section className="hero-section max-w-6xl mx-auto px-5 pt-14 pb-16 grid md:grid-cols-2 gap-10 items-center">
         <div>
           <h1 className="text-4xl md:text-5xl font-extrabold leading-tight" style={{ color: GREEN }}>
             Who We Are
@@ -36,13 +36,13 @@ export default function About() {
             </button>
           </div>
         </div>
-        <div className="rounded-xl bg-[#ECEFED] aspect-[4/3] flex items-center justify-center">
+        <div className="rounded-xl bg-white aspect-[4/3] flex items-center justify-center">
           <HardHat className="w-12 h-12 text-[#B7C0BA]" />
         </div>
       </section>
 
       {/* Founding story */}
-      <section className="bg-[#F7F9F7] py-16">
+      <section className="bg-white py-16">
         <div className="max-w-4xl mx-auto px-5">
           <h2 className="text-3xl font-extrabold text-center" style={{ color: GREEN }}>Our Story</h2>
           <div className="mt-8 bg-white border border-[#E5E9E6] rounded-xl p-8 text-sm text-[#4B564F] leading-relaxed space-y-4">
@@ -78,7 +78,7 @@ export default function About() {
             </p>
           </div>
           <div className="bg-white border border-[#E5E9E6] rounded-xl p-5 flex gap-4">
-            <div className="w-16 h-16 rounded-lg bg-[#ECEFED] flex-shrink-0" />
+            <div className="w-16 h-16 rounded-lg bg-white border border-[#E5E9E6] flex-shrink-0" />
             <div>
               <p className="font-bold">{COMPANY.founder}</p>
               <p className="text-xs text-[#8A938D]">{COMPANY.founderTitle}</p>
@@ -93,7 +93,7 @@ export default function About() {
       </section>
 
       {/* Leadership Team */}
-      <section className="bg-[#F7F9F7] py-16">
+      <section className="bg-white py-16">
         <div className="max-w-6xl mx-auto px-5">
           <h2 className="text-3xl font-extrabold text-center" style={{ color: GREEN }}>Our Team</h2>
           <p className="text-center text-[#5B6660] mt-2 max-w-xl mx-auto">
@@ -103,7 +103,7 @@ export default function About() {
           <div className="mt-10 grid sm:grid-cols-2 md:grid-cols-3 gap-5">
             {LEADERSHIP.map((p) => (
               <div key={p.name} className="bg-white border border-[#E5E9E6] rounded-xl p-5">
-                <div className="w-10 h-10 rounded-full bg-[#ECEFED] mb-3" />
+                <div className="w-10 h-10 rounded-full bg-white border border-[#E5E9E6] mb-3" />
                 <p className="font-bold text-sm">{p.name}</p>
                 <p className="text-xs text-[#8A938D] mt-0.5">{p.title}</p>
               </div>
@@ -128,7 +128,7 @@ export default function About() {
       </section>
 
       {/* Core Values */}
-      <section className="bg-[#F7F9F7] py-16">
+      <section className="bg-white py-16">
         <div className="max-w-6xl mx-auto px-5">
           <h2 className="text-3xl font-extrabold text-center" style={{ color: GREEN }}>Our Core Values</h2>
           <p className="text-center text-[#5B6660] mt-2">

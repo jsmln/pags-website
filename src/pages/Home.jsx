@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Snowflake,
   Flame,
@@ -39,60 +39,36 @@ const differentiators = [
   },
 ];
 
-function BuildingGraphic() {
-  return (
-    <svg
-      viewBox="0 0 420 300"
-      className="w-full h-auto"
-      role="img"
-      aria-label="Industrial facility illustration"
-    >
-      <rect x="150" y="230" width="270" height="14" fill="#C9CDCB" />
-      <rect x="40" y="120" width="150" height="124" fill="#3C4448" />
-      <rect x="40" y="120" width="150" height="10" fill="#2A3134" />
-      {[0, 1, 2, 3].map((row) =>
-        [0, 1, 2].map((col) => (
-          <rect
-            key={`w-${row}-${col}`}
-            x={60 + col * 40}
-            y={140 + row * 22}
-            width="20"
-            height="14"
-            fill={row === 1 && col === 1 ? GREEN : "#5B6568"}
-          />
-        ))
-      )}
-      <rect x="190" y="60" width="200" height="184" fill="#4A5458" />
-      <rect x="190" y="60" width="200" height="10" fill="#333B3E" />
-      {[0, 1, 2, 3, 4, 5].map((row) =>
-        [0, 1, 2, 3].map((col) => (
-          <rect
-            key={`w2-${row}-${col}`}
-            x={205 + col * 44}
-            y={80 + row * 26}
-            width="24"
-            height="16"
-            fill={(row + col) % 5 === 0 ? GREEN : "#6B7477"}
-          />
-        ))
-      )}
-      <rect x="220" y="230" width="40" height="14" fill="#2A3134" />
-      <rect x="330" y="140" width="30" height="104" fill="#8A9296" />
-      <rect x="336" y="150" width="18" height="18" fill="#2A3134" />
-    </svg>
-  );
-}
-
 export default function Home() {
   const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    const revealItems = document.querySelectorAll("[data-reveal]");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    revealItems.forEach((item) => observer.observe(item));
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <>
       {/* Hero */}
-      <section className="max-w-6xl mx-auto px-5 pt-14 pb-16 grid md:grid-cols-2 gap-10 items-center">
-        <div>
+      <section className="home-section hero-section">
+        <div className="max-w-6xl mx-auto px-5 py-12 md:py-16 grid md:grid-cols-2 gap-8 items-center">
+        <div data-reveal>
           <h1 className="text-4xl md:text-5xl font-extrabold leading-tight" style={{ color: GREEN }}>
-            Mechanical, Electrical &amp; Ventilation Engineering
+            <span className="hero-title-line">Mechanical, Electrical &amp;</span>{" "}
+            <span className="hero-title-line">Ventilation Engineering</span>
           </h1>
           <p className="mt-4 text-[#4B564F] text-base max-w-md">
             Design, fabrication, planning, and installation — serving clients since{" "}
@@ -126,14 +102,20 @@ export default function Home() {
             ))}
           </div>
         </div>
-        <div className="rounded-xl overflow-hidden">
-          <BuildingGraphic />
+        <div data-reveal className="hero-building-frame rounded-xl">
+          <img
+            src="/pagshome.png"
+            alt="Pacific Airconditioning and General Services facility"
+            className="hero-building-image w-full h-auto object-contain"
+          />
+        </div>
         </div>
       </section>
 
       {/* Core Services — real 4-group breakdown from pagsinc.com/services */}
-      <section id="services" className="bg-[#F7F9F7] py-16">
+      <section id="services" className="home-section section-tint">
         <div className="max-w-6xl mx-auto px-5">
+          <div data-reveal>
           <h2 className="text-3xl font-extrabold text-center" style={{ color: GREEN }}>
             What We Offer
           </h2>
@@ -158,12 +140,14 @@ export default function Home() {
               );
             })}
           </div>
+          </div>
         </div>
       </section>
 
       {/* Why work with us — real differentiators, not invented process steps */}
-      <section className="py-16">
+      <section className="home-section section-paper">
         <div className="max-w-6xl mx-auto px-5">
+          <div data-reveal>
           <h2 className="text-3xl font-extrabold text-center" style={{ color: GREEN }}>Why Work With Us</h2>
           <p className="text-center text-[#5B6660] mt-2">What sets our project delivery apart.</p>
           <div className="mt-12 grid sm:grid-cols-3 gap-8">
@@ -177,12 +161,14 @@ export default function Home() {
               </div>
             ))}
           </div>
+          </div>
         </div>
       </section>
 
       {/* Sectors we serve — real, from pagsinc.com/projects */}
-      <section id="portfolio" className="bg-[#F7F9F7] py-16">
+      <section id="portfolio" className="home-section section-tint">
         <div className="max-w-6xl mx-auto px-5 text-center">
+          <div data-reveal>
           <h2 className="text-3xl font-extrabold" style={{ color: GREEN }}>Sectors We Serve</h2>
           <p className="text-[#5B6660] mt-2 max-w-xl mx-auto">
             A wide range of professional services delivered across six industries.
@@ -207,12 +193,14 @@ export default function Home() {
               );
             })}
           </div>
+          </div>
         </div>
       </section>
 
       {/* Quote Form */}
-      <section id="quote" className="py-16">
+      <section id="quote" className="home-section section-paper">
         <div className="max-w-3xl mx-auto px-5 text-center">
+          <div data-reveal>
           <h2 className="text-3xl font-extrabold" style={{ color: GREEN }}>Interested In Our Services?</h2>
           <p className="text-[#5B6660] mt-2">
             Let us know what you need and we'll do our best to help — we provide clear, detailed
@@ -272,6 +260,7 @@ export default function Home() {
             </div>
           </form>
           )}
+          </div>
         </div>
       </section>
     </>

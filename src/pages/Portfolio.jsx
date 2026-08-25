@@ -9,7 +9,7 @@ export default function Portfolio() {
   return (
     <div className="max-w-6xl mx-auto px-5 pt-8">
       {/* Hero */}
-      <section className="pb-16 grid md:grid-cols-2 gap-10 items-center">
+      <section className="hero-section pb-16 grid md:grid-cols-2 gap-10 items-center">
         <div>
           <h1 className="text-4xl font-extrabold leading-tight" style={{ color: GREEN }}>
             Our Projects
@@ -28,7 +28,7 @@ export default function Portfolio() {
             </a>
           </div>
         </div>
-        <div className="rounded-xl bg-[#ECEFED] aspect-[4/3] flex items-center justify-center">
+        <div className="rounded-xl bg-white aspect-[4/3] flex items-center justify-center">
           <Building2 className="w-10 h-10" style={{ color: GRAY }} />
         </div>
       </section>

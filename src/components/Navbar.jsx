@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Menu, X, Search, HardHat } from "lucide-react";
+import { Menu, X, Search } from "lucide-react";
 import { GREEN, NAV_LINKS } from "../lib/theme.js";
 
 export default function Navbar() {
@@ -17,7 +17,7 @@ export default function Navbar() {
             className="w-9 h-9 rounded-full border-2 flex items-center justify-center"
             style={{ borderColor: GREEN }}
           >
-            <HardHat className="w-4 h-4" style={{ color: GREEN }} />
+            <img src="/PAGS.png" alt="PAGS" className="w-7 h-7 object-contain" />
           </div>
           <div className="leading-tight">
             <p className="text-[13px] font-extrabold tracking-tight" style={{ color: GREEN }}>
