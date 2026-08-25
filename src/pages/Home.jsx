@@ -104,7 +104,7 @@ export default function Home() {
         </div>
         <div data-reveal className="hero-building-frame rounded-xl">
           <img
-            src="/pagshome.png"
+            src={`${import.meta.env.BASE_URL}pagshome.png`}
             alt="Pacific Airconditioning and General Services facility"
             className="hero-building-image w-full h-auto object-contain"
           />
