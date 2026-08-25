@@ -7,7 +7,7 @@ import { GREEN } from "../lib/theme.js";
  */
 export default function LegalPage({ title, children }) {
   return (
-    <section className="max-w-3xl mx-auto px-5 py-16">
+    <section className="hero-section max-w-3xl mx-auto px-5 py-16">
       <h1 className="text-3xl font-extrabold" style={{ color: GREEN }}>{title}</h1>
       <div className="mt-6 text-sm text-[#4B564F] leading-relaxed space-y-4">
         {children || (

@@ -10,7 +10,7 @@ export default function Careers() {
   return (
     <>
       {/* Hero */}
-      <section className="max-w-6xl mx-auto px-5 pt-14 pb-16 grid md:grid-cols-2 gap-10 items-center">
+      <section className="hero-section max-w-6xl mx-auto px-5 pt-14 pb-16 grid md:grid-cols-2 gap-10 items-center">
         <div>
           <h1 className="text-4xl md:text-5xl font-extrabold leading-tight" style={{ color: GREEN }}>
             Careers
@@ -29,13 +29,13 @@ export default function Careers() {
             </a>
           </div>
         </div>
-        <div className="rounded-xl bg-[#ECEFED] aspect-[4/3] flex items-center justify-center">
+        <div className="rounded-xl bg-white aspect-[4/3] flex items-center justify-center">
           <Briefcase className="w-12 h-12" style={{ color: GRAY }} />
         </div>
       </section>
 
       {/* Job listings */}
-      <section id="openings" className="bg-[#F7F9F7] py-16">
+      <section id="openings" className="bg-white py-16">
         <div className="max-w-4xl mx-auto px-5">
           <h2 className="text-3xl font-extrabold text-center" style={{ color: GREEN }}>
             Current Openings
@@ -109,7 +109,7 @@ export default function Careers() {
       </section>
 
       {/* Apply now form */}
-      <section id="apply" className="bg-[#F7F9F7] py-16">
+      <section id="apply" className="bg-white py-16">
         <div className="max-w-2xl mx-auto px-5 text-center">
           <h2 className="text-3xl font-extrabold" style={{ color: GREEN }}>Apply Now</h2>
           <p className="text-[#5B6660] mt-2">Send us your details and we'll get back to you.</p>
