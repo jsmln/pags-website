@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import {
   MapPin,
   Phone,
@@ -13,8 +14,10 @@ import { GREEN, GREEN_DARK, GREEN_LIGHT } from "../lib/theme.js";
 import { CONTACT, DEPARTMENT_CONTACTS, LOCATIONS } from "../lib/companyData.js";
 
 export default function Contact() {
+  const [searchParams] = useSearchParams();
   const [activeLocation, setActiveLocation] = useState(0);
   const [submitted, setSubmitted] = useState(false);
+  const isHighlighted = Boolean(searchParams.get("highlight"));
 
   const loc = LOCATIONS[activeLocation];
   const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(loc.address)}&output=embed`;
@@ -26,7 +29,7 @@ export default function Contact() {
     <>
       {/* Hero */}
       <section className="max-w-6xl mx-auto px-5 pt-14 pb-10 text-center">
-        <h1 className="text-4xl md:text-5xl font-extrabold leading-tight" style={{ color: GREEN }}>
+        <h1 className={`text-4xl md:text-5xl font-extrabold leading-tight ${isHighlighted ? "rounded-md px-2 -mx-2 shadow-[0_0_0_3px_#E7F1EA]" : ""}`} style={{ color: GREEN }}>
           Get In Touch
         </h1>
         <p className="mt-4 text-[#4B564F] text-base max-w-xl mx-auto">
@@ -177,17 +180,21 @@ export default function Contact() {
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
                   <label className="text-xs font-semibold text-[#4B564F]">Name</label>
-                  <input required className="mt-1 w-full border border-[#DDE3DF] rounded-md px-3 py-2 text-sm outline-none focus:border-[#1B5E3F]" />
+                  <input required name="name" type="text" autoComplete="name" minLength={2} maxLength={80} pattern="[\p{L}][\p{L} .'-]{1,79}" placeholder="e.g., Maria Santos" title="Enter a name using letters, spaces, apostrophes, or hyphens." className="mt-1 w-full border border-[#DDE3DF] rounded-md px-3 py-2 text-sm outline-none focus:border-[#1B5E3F]" />
                 </div>
                 <div>
                   <label className="text-xs font-semibold text-[#4B564F]">Email</label>
-                  <input required type="email" className="mt-1 w-full border border-[#DDE3DF] rounded-md px-3 py-2 text-sm outline-none focus:border-[#1B5E3F]" />
+                  <input required name="email" type="email" autoComplete="email" maxLength={254} placeholder="you@example.com" className="mt-1 w-full border border-[#DDE3DF] rounded-md px-3 py-2 text-sm outline-none focus:border-[#1B5E3F]" />
                 </div>
               </div>
               <div>
                 <label className="text-xs font-semibold text-[#4B564F]">Message</label>
                 <textarea
                   required
+                  name="message"
+                  minLength={10}
+                  maxLength={2000}
+                  placeholder="Tell us how we can help, including your project details."
                   rows={5}
                   className="mt-1 w-full border border-[#DDE3DF] rounded-md px-3 py-2 text-sm outline-none focus:border-[#1B5E3F] resize-none"
                 />

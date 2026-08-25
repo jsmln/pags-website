@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import {
   Search,
   Snowflake,
@@ -35,24 +36,54 @@ const whyPoints = [
 ];
 
 export default function Services() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchQuery = searchParams.get("search") || "";
+  const [searchTerm, setSearchTerm] = useState(searchQuery);
+  const [activeSearchTerm, setActiveSearchTerm] = useState(searchQuery);
   const [filter, setFilter] = useState("All Services");
+  const highlight = searchParams.get("highlight") || "";
+  const isHeadingHighlighted = Boolean(highlight) && !SERVICE_GROUPS.some(({ title }) => title === highlight);
+
+  useEffect(() => {
+    setSearchTerm(searchQuery);
+    setActiveSearchTerm(searchQuery);
+  }, [searchQuery]);
+
+  useEffect(() => {
+    if (highlight) {
+      requestAnimationFrame(() => document.getElementById("search-result")?.scrollIntoView({ behavior: "smooth", block: "center" }));
+    }
+  }, [highlight]);
+
+  const normalizedSearch = activeSearchTerm.trim().toLowerCase();
+  const filteredGroups = SERVICE_GROUPS.filter(({ title, items }) => {
+    if (!normalizedSearch) return true;
+    return [title, ...items].some((value) => value.toLowerCase().includes(normalizedSearch));
+  });
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    const query = searchTerm.trim();
+    setActiveSearchTerm(query);
+    setSearchParams(query ? { search: query } : {});
+  };
 
   return (
     <>
       {/* Hero */}
       <section className="hero-section max-w-6xl mx-auto px-5 pt-14 pb-16 grid md:grid-cols-2 gap-10 items-center">
         <div>
-          <h1 className="text-4xl md:text-5xl font-extrabold leading-tight" style={{ color: GREEN }}>
+          <h1 className={`text-4xl md:text-5xl font-extrabold leading-tight ${isHeadingHighlighted ? "rounded-md px-2 -mx-2 shadow-[0_0_0_3px_#E7F1EA]" : ""}`} style={{ color: GREEN }}>
             What We Offer
           </h1>
           <p className="mt-4 text-[#4B564F] text-base max-w-md">
             Airconditioning and ventilation engineering, fire protection, and plumbing &amp;
             sanitary systems — design, planning, fabrication, and installation.
           </p>
-          <div className="mt-6 flex items-center gap-2 border border-[#DDE3DF] rounded-full px-4 py-2.5 max-w-sm">
+          <form onSubmit={handleSearch} className="mt-6 flex items-center gap-2 border border-[#DDE3DF] rounded-full px-4 py-2.5 max-w-sm">
             <Search className="w-4 h-4 text-[#8A938D] flex-shrink-0" />
-            <input placeholder="Search services" className="text-sm outline-none w-full placeholder:text-[#A3ABA5]" />
-          </div>
+            <input type="search" value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} aria-label="Search services" placeholder="Search services" className="text-sm outline-none w-full placeholder:text-[#A3ABA5]" />
+          </form>
           <div className="mt-6 flex flex-wrap gap-3">
             <button className="px-5 py-2.5 rounded-md border font-semibold text-sm" style={{ borderColor: GREEN, color: GREEN }}>Schedule a Call</button>
             <button className="px-5 py-2.5 rounded-md font-semibold text-sm text-white" style={{ backgroundColor: GREEN }}>Request a Quote</button>
@@ -86,10 +117,11 @@ export default function Services() {
           </div>
 
           <div className="mt-12 grid sm:grid-cols-2 gap-6">
-            {SERVICE_GROUPS.map(({ numeral, title, items }, i) => {
+            {filteredGroups.map(({ numeral, title, items }, i) => {
               const Icon = GROUP_ICONS[i % GROUP_ICONS.length];
+              const isHighlighted = title === highlight;
               return (
-                <div key={title} className="bg-white border border-[#E5E9E6] rounded-xl p-6">
+                <div key={title} id={isHighlighted ? "search-result" : undefined} className={`bg-white border rounded-xl p-6 transition-shadow ${isHighlighted ? "border-[#1B5E3F] shadow-[0_0_0_3px_#E7F1EA]" : "border-[#E5E9E6]"}`}>
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: GREEN_LIGHT }}>
                       <Icon className="w-6 h-6" style={{ color: GREEN }} />
@@ -111,6 +143,11 @@ export default function Services() {
               );
             })}
           </div>
+          {filteredGroups.length === 0 && (
+            <p className="mt-10 text-center text-sm text-[#5B6660]">
+              No services matched “{searchTerm}”. Try a different term.
+            </p>
+          )}
         </div>
       </section>
 

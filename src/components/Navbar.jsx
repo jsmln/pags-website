@@ -1,10 +1,42 @@
 import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Menu, X, Search } from "lucide-react";
 import { GREEN, NAV_LINKS } from "../lib/theme.js";
+import { PROJECT_SECTORS, SERVICE_GROUPS } from "../lib/companyData.js";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    const query = searchTerm.trim();
+    if (!query) return;
+
+    const normalizedQuery = query.toLowerCase();
+    const serviceMatch = SERVICE_GROUPS.find(({ title, items }) =>
+      [title, ...items].some((value) => value.toLowerCase().includes(normalizedQuery))
+    );
+    const sectorMatch = PROJECT_SECTORS.find(({ title, desc }) =>
+      [title, desc].some((value) => value.toLowerCase().includes(normalizedQuery))
+    );
+    const pageMatch = [
+      { path: "/services", terms: ["service", "services"] },
+      { path: "/portfolio", terms: ["portfolio", "projects", "project"] },
+      { path: "/about", terms: ["about", "company", "mission", "values", "leadership"] },
+      { path: "/careers", terms: ["career", "careers", "job", "jobs", "hiring", "resume"] },
+      { path: "/contact", terms: ["contact", "email", "phone", "location", "address"] },
+    ].find(({ terms }) => terms.some((term) => term.includes(normalizedQuery) || normalizedQuery.includes(term)));
+
+    if (serviceMatch) {
+      navigate(`/services?search=${encodeURIComponent(query)}&highlight=${encodeURIComponent(serviceMatch.title)}`);
+    } else if (sectorMatch) {
+      navigate(`/portfolio?highlight=${encodeURIComponent(sectorMatch.title)}`);
+    } else if (pageMatch) {
+      navigate(`${pageMatch.path}?highlight=${encodeURIComponent(query)}`);
+    }
+  };
 
   const linkClass = ({ isActive }) =>
     `hover:text-[#1B5E3F] ${isActive ? "font-bold" : "font-medium"}`;
@@ -45,13 +77,17 @@ export default function Navbar() {
           </Link>
         </nav>
 
-        <div className="hidden md:flex items-center gap-2 border border-[#DDE3DF] rounded-full px-3 py-1.5">
+        <form onSubmit={handleSearch} className="hidden md:flex items-center gap-2 border border-[#DDE3DF] rounded-full px-3 py-1.5">
           <Search className="w-4 h-4 text-[#8A938D]" />
           <input
+            type="search"
+            value={searchTerm}
+            onChange={(event) => setSearchTerm(event.target.value)}
+            aria-label="Search services"
             placeholder="Search in site"
             className="text-sm outline-none placeholder:text-[#A3ABA5] w-32"
           />
-        </div>
+        </form>
 
         <button
           className="md:hidden"

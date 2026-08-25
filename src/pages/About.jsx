@@ -1,4 +1,5 @@
 import React from "react";
+import { useSearchParams } from "react-router-dom";
 import { HardHat, Compass, TrendingUp, Handshake, Leaf } from "lucide-react";
 import { GREEN, GREEN_DARK, GREEN_LIGHT } from "../lib/theme.js";
 import { COMPANY, LEADERSHIP, CORE_VALUES, VISION, MISSION } from "../lib/companyData.js";
@@ -15,12 +16,15 @@ const philosophy = [
 ];
 
 export default function About() {
+  const [searchParams] = useSearchParams();
+  const isHighlighted = Boolean(searchParams.get("highlight"));
+
   return (
     <>
       {/* Hero */}
       <section className="hero-section max-w-6xl mx-auto px-5 pt-14 pb-16 grid md:grid-cols-2 gap-10 items-center">
         <div>
-          <h1 className="text-4xl md:text-5xl font-extrabold leading-tight" style={{ color: GREEN }}>
+          <h1 className={`text-4xl md:text-5xl font-extrabold leading-tight ${isHighlighted ? "rounded-md px-2 -mx-2 shadow-[0_0_0_3px_#E7F1EA]" : ""}`} style={{ color: GREEN }}>
             Who We Are
           </h1>
           <p className="mt-4 text-[#4B564F] text-base max-w-md">

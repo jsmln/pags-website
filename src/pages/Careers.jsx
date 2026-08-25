@@ -1,18 +1,21 @@
 import React, { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Briefcase, Mail, MapPin, ChevronDown, CheckCircle2, Send } from "lucide-react";
 import { GREEN, GREEN_DARK, GREEN_LIGHT, GRAY } from "../lib/theme.js";
 import { JOB_OPENINGS, APPLICATION_INSTRUCTIONS, CONTACT } from "../lib/companyData.js";
 
 export default function Careers() {
+  const [searchParams] = useSearchParams();
   const [openJob, setOpenJob] = useState(null);
   const [submitted, setSubmitted] = useState(false);
+  const isHighlighted = Boolean(searchParams.get("highlight"));
 
   return (
     <>
       {/* Hero */}
       <section className="hero-section max-w-6xl mx-auto px-5 pt-14 pb-16 grid md:grid-cols-2 gap-10 items-center">
         <div>
-          <h1 className="text-4xl md:text-5xl font-extrabold leading-tight" style={{ color: GREEN }}>
+          <h1 className={`text-4xl md:text-5xl font-extrabold leading-tight ${isHighlighted ? "rounded-md px-2 -mx-2 shadow-[0_0_0_3px_#E7F1EA]" : ""}`} style={{ color: GREEN }}>
             Careers
           </h1>
           <p className="mt-4 text-[#4B564F] text-base max-w-md">
@@ -130,7 +133,7 @@ export default function Careers() {
             >
               <div>
                 <label className="text-xs font-semibold text-[#4B564F]">Name</label>
-                <input required name="name" className="mt-1 w-full border border-[#DDE3DF] rounded-md px-3 py-2 text-sm outline-none focus:border-[#1B5E3F]" />
+                <input required name="name" type="text" autoComplete="name" minLength={2} maxLength={80} pattern="[\p{L}][\p{L} .'-]{1,79}" placeholder="e.g., Juan Dela Cruz" title="Enter a name using letters, spaces, apostrophes, or hyphens." className="mt-1 w-full border border-[#DDE3DF] rounded-md px-3 py-2 text-sm outline-none focus:border-[#1B5E3F]" />
               </div>
               <div>
                 <label className="text-xs font-semibold text-[#4B564F]">Position</label>
@@ -143,7 +146,7 @@ export default function Careers() {
               </div>
               <div className="sm:col-span-2">
                 <label className="text-xs font-semibold text-[#4B564F]">Email</label>
-                <input required type="email" name="email" className="mt-1 w-full border border-[#DDE3DF] rounded-md px-3 py-2 text-sm outline-none focus:border-[#1B5E3F]" />
+                <input required type="email" name="email" autoComplete="email" maxLength={254} placeholder="you@example.com" className="mt-1 w-full border border-[#DDE3DF] rounded-md px-3 py-2 text-sm outline-none focus:border-[#1B5E3F]" />
               </div>
               <div className="sm:col-span-2">
                 <label className="text-xs font-semibold text-[#4B564F]">CV / Resume</label>

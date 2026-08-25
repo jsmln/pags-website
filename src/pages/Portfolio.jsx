@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Hotel, Factory, Building2, Home as HomeIcon, Building, Globe2, PhoneCall } from "lucide-react";
 import { GREEN, GREEN_DARK, GREEN_LIGHT, GRAY } from "../lib/theme.js";
 import { PROJECT_SECTORS, CONTACT } from "../lib/companyData.js";
@@ -6,12 +7,20 @@ import { PROJECT_SECTORS, CONTACT } from "../lib/companyData.js";
 const SECTOR_ICONS = [Hotel, Factory, Building2, HomeIcon, Building, Globe2];
 
 export default function Portfolio() {
+  const [searchParams] = useSearchParams();
+  const highlight = searchParams.get("highlight") || "";
+  const isHeadingHighlighted = Boolean(highlight) && !PROJECT_SECTORS.some(({ title }) => title === highlight);
+
+  useEffect(() => {
+    if (highlight) document.getElementById("search-result")?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [highlight]);
+
   return (
     <div className="max-w-6xl mx-auto px-5 pt-8">
       {/* Hero */}
       <section className="hero-section pb-16 grid md:grid-cols-2 gap-10 items-center">
         <div>
-          <h1 className="text-4xl font-extrabold leading-tight" style={{ color: GREEN }}>
+          <h1 className={`text-4xl font-extrabold leading-tight ${isHeadingHighlighted ? "rounded-md px-2 -mx-2 shadow-[0_0_0_3px_#E7F1EA]" : ""}`} style={{ color: GREEN }}>
             Our Projects
           </h1>
           <p className="mt-4 text-[#4B564F] text-base max-w-md">
@@ -45,8 +54,9 @@ export default function Portfolio() {
         <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {PROJECT_SECTORS.map(({ title, desc }, i) => {
             const Icon = SECTOR_ICONS[i % SECTOR_ICONS.length];
+            const isHighlighted = title === highlight;
             return (
-              <div key={title} className="border border-[#E5E9E6] rounded-xl p-6">
+              <div key={title} id={isHighlighted ? "search-result" : undefined} className={`border rounded-xl p-6 transition-shadow ${isHighlighted ? "border-[#1B5E3F] shadow-[0_0_0_3px_#E7F1EA]" : "border-[#E5E9E6]"}`}>
                 <div className="w-12 h-12 rounded-full flex items-center justify-center mb-4" style={{ backgroundColor: GREEN_LIGHT }}>
                   <Icon className="w-6 h-6" style={{ color: GREEN }} />
                 </div>

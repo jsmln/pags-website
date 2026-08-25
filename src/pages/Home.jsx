@@ -226,6 +226,11 @@ export default function Home() {
               <input
                 required
                 name="companyName"
+                type="text"
+                autoComplete="organization"
+                minLength={2}
+                maxLength={100}
+                pattern="[A-Za-z0-9][A-Za-z0-9 .,&'()-]{1,99}"
                 placeholder="e.g., Northbridge Facilities"
                 className="mt-1 w-full border border-[#DDE3DF] rounded-md px-3 py-2 text-sm outline-none focus:border-[#1B5E3F]"
               />
@@ -236,14 +241,16 @@ export default function Home() {
                 required
                 type="email"
                 name="workEmail"
+                autoComplete="email"
+                maxLength={254}
                 placeholder="name@company.com"
                 className="mt-1 w-full border border-[#DDE3DF] rounded-md px-3 py-2 text-sm outline-none focus:border-[#1B5E3F]"
               />
             </div>
             <div className="sm:col-span-2">
               <label className="text-xs font-semibold text-[#4B564F]">Service Needed</label>
-              <select className="mt-1 w-full border border-[#DDE3DF] rounded-md px-3 py-2 text-sm outline-none focus:border-[#1B5E3F] bg-white">
-                <option>Select your scope</option>
+              <select required name="service" defaultValue="" className="mt-1 w-full border border-[#DDE3DF] rounded-md px-3 py-2 text-sm outline-none focus:border-[#1B5E3F] bg-white">
+                <option value="" disabled>Select your scope</option>
                 {SERVICE_GROUPS.map((g) => (
                   <option key={g.title}>{g.title}</option>
                 ))}
